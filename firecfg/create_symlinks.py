@@ -41,7 +41,7 @@ class CreateSymlinks:
                 continue
             if which(prg):
                 try:
-                    #print(f"Create symlink for {prg}")
+                    print(f"Create symlink for {prg}")
                     symlink(CreateSymlinks.FIREJAIL_EXEC, CreateSymlinks.BINDIR + prg)
                 except FileExistsError:
                     if islink(CreateSymlinks.BINDIR + prg) \

@@ -3,9 +3,9 @@ firecfg.py
 
 An improved firecfg written in python.
 
-maintenance: experimental
+maintenance: **experimental**
 
-Version: 0.0.1
+Version: 0.0.2
 
 License
 -------

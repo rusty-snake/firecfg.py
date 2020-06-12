@@ -15,20 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os import listdir, unlink
-from os.path import realpath
+from os.path import basename
 
-class CleanSymlinks:
-    FIREJAIL_EXEC = "/usr/bin/firejail"
-    BINDIR = "/usr/local/bin/"
+from ._base_fixer import _BaseFixer
 
-    def clean(self):
-        for file in listdir(CleanSymlinks.BINDIR):
-            symlink = CleanSymlinks.BINDIR + file
-            if realpath(symlink) == CleanSymlinks.FIREJAIL_EXEC:
-                print("Removing", symlink)
-                unlink(symlink)
+class AbsoluteExec(_BaseFixer):
+    def can_fix(self, context, line):
+        return line["key"] == "Exec" and line["value"][0] == "/"
+
+    def fix(self, context, line):
+        command = line["value"].split(" ")
+        command[0] = basename(command[0])
+        return "Exec=" + " ".join(command)
 
 
-if __name__ == "__main__":
-    CleanSymlinks().clean()
+Fixer = AbsoluteExec

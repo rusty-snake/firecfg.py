@@ -15,20 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os import listdir, unlink
-from os.path import realpath
+from ._base_fixer import _BaseFixer
 
-class CleanSymlinks:
-    FIREJAIL_EXEC = "/usr/bin/firejail"
-    BINDIR = "/usr/local/bin/"
+class DBusActivatable(_BaseFixer):
+    def can_fix(self, context, line):
+        return line["rawline"] == "DBusActivatable=true"
 
-    def clean(self):
-        for file in listdir(CleanSymlinks.BINDIR):
-            symlink = CleanSymlinks.BINDIR + file
-            if realpath(symlink) == CleanSymlinks.FIREJAIL_EXEC:
-                print("Removing", symlink)
-                unlink(symlink)
+    def fix(self, context, line):
+        return "DBusActivatable=false"
 
-
-if __name__ == "__main__":
-    CleanSymlinks().clean()
+Fixer = DBusActivatable

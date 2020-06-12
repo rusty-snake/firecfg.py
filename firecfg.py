@@ -15,20 +15,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os import listdir, unlink
-from os.path import realpath
+from os import getenv, getuid, setgid, setgroups, setuid
+from sys import exit as sys_exit
 
-class CleanSymlinks:
-    FIREJAIL_EXEC = "/usr/bin/firejail"
-    BINDIR = "/usr/local/bin/"
+from firecfg.clean_symlinks import CleanSymlinks
+from firecfg.create_symlinks import CreateSymlinks
+from firecfg.fix_desktop import FixDesktop
 
-    def clean(self):
-        for file in listdir(CleanSymlinks.BINDIR):
-            symlink = CleanSymlinks.BINDIR + file
-            if realpath(symlink) == CleanSymlinks.FIREJAIL_EXEC:
-                print("Removing", symlink)
-                unlink(symlink)
+def main():
+    if getuid() != 0:
+        print("ERROR: Need to be root")
+        sys_exit(1)
 
+    CleanSymlinks().clean()
+    CreateSymlinks().create()
+
+    uid = int(getenv("SUDO_UID"))
+    gid = int(getenv("SUDO_GID"))
+    if uid and gid:
+        setgroups([])
+        setgid(gid)
+        setuid(uid)
+
+        fix_desktop = FixDesktop()
+        fix_desktop.load_fixers()
+        fix_desktop.fix()
 
 if __name__ == "__main__":
-    CleanSymlinks().clean()
+    main()

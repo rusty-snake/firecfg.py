@@ -15,81 +15,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os import getenv, listdir, mkdir
-from os.path import basename, exists, realpath
-
-class Fixer:
-    """A fixer can fix one problematic thing in a desktop file"""
-
-    def can_fix(self, context, line):
-        """This function is called for every line in the desktop file,
-        and should give a quick answer whether this fixer can probably fix it.
-        :param context: {
-            "filename": "firefox.desktop",
-            "program": "firefox",
-            "section": "Desktop Entry",
-        }
-        :param line: {
-            "key": "Exec",
-            "value": "firefox %u",
-            "rawline": "Exec=firefox %u",
-        }
-        :retruns: true if `fix` can likely fix this line.
-        """
-        return False
-
-    def fix(self, context, line):
-        """Correct the line
-
-        :param context: same as can_fix
-        :param line: same as can_fix
-        :returns: The fixed (or unchanged) line
-        """
-        return line["rawline"]
-
-
-class AbsoluteExec(Fixer):
-    def can_fix(self, context, line):
-        return line["key"] == "Exec" and line["value"][0] == "/"
-
-    def fix(self, context, line):
-        command = line["value"].split(" ")
-        command[0] = basename(command[0])
-        return "Exec=" + " ".join(command)
-
-
-class DBusActivatable(Fixer):
-    def can_fix(self, context, line):
-        return line["rawline"] == "DBusActivatable=true"
-
-    def fix(self, context, line):
-        return "DBusActivatable=false"
-
-
-# For tests only
-class _RemoveExec(Fixer):
-    def can_fix(self, context, line):
-        return line["key"] == "Exec"
-
-    def fix(self, context, line):
-        return ""
-
+from os import getuid, listdir, mkdir
+from os.path import basename, dirname, exists, realpath
+from importlib import import_module
+from pwd import getpwuid
 
 class FixDesktop:
     def __init__(self):
         self._fixers = []
         self._source_dirs = ["/usr/share/applications/", "/usr/local/share/applications/"]
-        #self._target_dir = getenv("HOME") + "/.local/share/applications/"
-        self._target_dir = "./out/"
+        self._target_dir = getpwuid(getuid()).pw_dir + "/.local/share/applications/"
         self._symlinks = []
-
-    def load_fixers(self):
-        for file in listdir("fixers"):
-            if not file.endswith(".py") or file.startswith("_"):
-                continue
 
     def register_fixer(self, fixer):
         self._fixers.append(fixer)
+
+    def load_fixers(self):
+        fixers_path = dirname(__file__) + "/fixers"
+        fixers = listdir(fixers_path)
+        for fixer in fixers:
+            if fixer[0] == "_" or fixer[-3:] != ".py":
+                continue
+            self.register_fixer(import_module("firecfg.fixers." + fixer[:-3]).Fixer())
 
     def _find_program_name(self, file):
         """Return the program name found in the first Exec key in the file."""
@@ -135,8 +82,15 @@ class FixDesktop:
         return out_line
 
     def _process_desktop_file(self, sourcedir, file_name):
-        cleaned_file = {"data": "#Created by firecfg.py\n", "write": False}
-        context = {"filename": file_name, "program": None, "section": None}
+        cleaned_file = {
+            "data": "#Created by firecfg.py\n",
+            "write": False,
+        }
+        context = {
+            "filename": file_name,
+            "program": None,
+            "section": None,
+        }
         with open(sourcedir + file_name) as ddf:
             context["program"] = self._find_program_name(ddf)
             if not context["program"]:
@@ -157,6 +111,7 @@ class FixDesktop:
                         cleaned_file["write"] = True
                     cleaned_file["data"] += fixed_line + "\n"
         if cleaned_file["write"]:
+            print("INFO: Fixing", context["filename"])
             with open(self._target_dir + file_name, "w") as out_file:
                 out_file.write(cleaned_file["data"])
 
@@ -173,7 +128,5 @@ class FixDesktop:
 
 if __name__ == "__main__":
     FIX_DESKTOP = FixDesktop()
-    FIX_DESKTOP.register_fixer(AbsoluteExec())
-    FIX_DESKTOP.register_fixer(DBusActivatable())
-    #FIX_DESKTOP.register_fixer(_RemoveExec())
+    FIX_DESKTOP.load_fixers()
     FIX_DESKTOP.fix()
