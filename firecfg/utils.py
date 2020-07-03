@@ -15,20 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os import listdir, unlink
-from os.path import realpath
+from os import getenv
 
-class CleanSymlinks:
-    FIREJAIL_EXEC = "/usr/bin/firejail"
-    BINDIR = "/usr/local/bin/"
-
-    def clean(self):
-        for file in listdir(CleanSymlinks.BINDIR):
-            symlink = CleanSymlinks.BINDIR + file
-            if realpath(symlink) == CleanSymlinks.FIREJAIL_EXEC:
-                print("Removing", symlink)
-                unlink(symlink)
-
-
-if __name__ == "__main__":
-    CleanSymlinks().clean()
+def getenv_or(key, default):
+    """Return the value of the environment variable key if it exists and is not empty.
+    Otherwise default is returned."""
+    val = getenv(key)
+    if not val:
+        val = default
+    return val

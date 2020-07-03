@@ -15,13 +15,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from ._base_fixer import _BaseFixer
+from os import getuid, system
 
-class DBusActivatable(_BaseFixer):
-    def can_fix(self, context, line):
-        return line["rawline"] == "DBusActivatable=true"
+from . import config
+from .base_firejailer import BaseFirejailer
+from .utils import getenv_or
 
-    def fix(self, context, line):
-        return "DBusActivatable=false"
+class DBusServiceFirejailer(BaseFirejailer):
+    def __init__(self, groups):
+        sources = list(
+            map(
+                lambda p: p + "dbus-1/services/" if p[-1] == "/" else p + "/dbus-1/services/",
+                getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")
+            )
+        )
+        target = config.prefix + "overrides/share/dbus-1/services/"
+        super().__init__(sources, target, kind="dbus-service", groups=groups)
 
-Fixer = DBusActivatable
+    def after(self):
+        if getuid() != 0:
+            system("systemctl --user reload dbus.service")

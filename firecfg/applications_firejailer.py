@@ -15,18 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os.path import basename
+from . import config
+from .base_firejailer import BaseFirejailer
+from .utils import getenv_or
 
-from ._base_fixer import _BaseFixer
-
-class AbsoluteExec(_BaseFixer):
-    def can_fix(self, context, line):
-        return line["key"] == "Exec" and line["value"][0] == "/"
-
-    def fix(self, context, line):
-        command = line["value"].split(" ")
-        command[0] = basename(command[0])
-        return "Exec=" + " ".join(command)
-
-
-Fixer = AbsoluteExec
+class ApplicationsFirejailer(BaseFirejailer):
+    def __init__(self, groups):
+        sources = list(
+            map(
+                lambda p: p + "applications/" if p[-1] == "/" else p + "/applications/",
+                getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")
+            )
+        )
+        target = config.prefix + "overrides/share/applications/"
+        super().__init__(sources, target, kind="applications", groups=groups)

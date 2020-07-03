@@ -1,3 +1,5 @@
+#!/usr/bin/python3 -I
+#
 # Copyright © 2020 rusty-snake
 #
 # This file is part of firecfg.py
@@ -15,31 +17,41 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os import getenv, getuid, setgid, setgroups, setuid
-from sys import exit as sys_exit
+import logging
+from os import getuid
+from shutil import rmtree
 
-from firecfg.clean_symlinks import CleanSymlinks
+from firecfg import config
+from firecfg.groups import Groups
 from firecfg.create_symlinks import CreateSymlinks
-from firecfg.fix_desktop import FixDesktop
+from firecfg.autostart_firejailer import AutostartFirejailer
+from firecfg.applications_firejailer import ApplicationsFirejailer
+from firecfg.dbus_service_firejailer import DBusServiceFirejailer
 
 def main():
-    if getuid() != 0:
-        print("ERROR: Need to be root")
-        sys_exit(1)
+    logging.basicConfig(
+        format="firecfg.py:%(levelname)s: %(message)s",
+        level=logging.INFO,
+        )
 
-    CleanSymlinks().clean()
-    CreateSymlinks().create()
+    if getuid() == 0:
+        config.prefix = config.SYSTEM_PREFIX
+    else:
+        config.prefix = config.USER_PREFIX
 
-    uid = int(getenv("SUDO_UID"))
-    gid = int(getenv("SUDO_GID"))
-    if uid and gid:
-        setgroups([])
-        setgid(gid)
-        setuid(uid)
+    groups = Groups()
+    groups.load()
 
-        fix_desktop = FixDesktop()
-        fix_desktop.load_fixers()
-        fix_desktop.fix()
+    try:
+        rmtree(config.prefix + "overrides")
+    except FileNotFoundError as err:
+        if err.filename != config.prefix + "overrides":
+            raise
+
+    CreateSymlinks(groups).create()
+    AutostartFirejailer(groups).firejail()
+    ApplicationsFirejailer(groups).firejail()
+    DBusServiceFirejailer(groups).firejail()
 
 if __name__ == "__main__":
     main()
