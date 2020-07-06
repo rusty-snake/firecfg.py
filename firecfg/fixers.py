@@ -80,27 +80,7 @@ class PUBFOAE_DBusService(PrependUsrBinFirejailOnAbsoluteExec):
 
 ####################
 
-class Gapplication(_BaseFixer):
-    KIND = "special:applications"
-    FILES = [r"org\.gnome\.(Maps|Weather)\.desktop"]
-
-    def can_fix(self, context, line):
-        return line["key"] == "Exec"
-
-    def fix(self, context, line):
-        if context["source_file_name"] == "org.gnome.Maps.desktop":
-            cmd = "Exec=gnome-maps %U"
-        elif context["source_file_name"] == "org.gnome.Weather.desktop":
-            cmd = "Exec=gnome-weather"
-        else:
-            cmd = line["rawline"]
-        return cmd
-
-
-####################
-
 FIXERS = [
-    Gapplication(),
     PUBFOAE_Autostart(),
     PUBFOAE_Applications(),
     PUBFOAE_DBusService(),
