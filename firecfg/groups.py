@@ -43,7 +43,7 @@ class Groups:
             for place in self.programs:
                 if place in places:
                     self.programs[place].append(program)
-                elif f"!{place}" in places:
+                elif f"!{place}" in places and program in self.programs[place]:
                     self.programs[place].remove(program)
 
     def _load_from(self, prefix):
