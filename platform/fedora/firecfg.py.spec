@@ -38,6 +38,7 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/firecfg.py-*.egg-info
 %{_sysconfdir}/firecfg.py
 %{_sysconfdir}/firejail/disable-common.local
 %{_sysconfdir}/firejail/org.gnome.Maps.profile
+%{_sysconfdir}/firejail/org.gnome.Weather.profile
 %{_sysconfdir}/profile.d/zz-firecfg.py.sh
 %_systemd_system_env_generator_dir/zz-firecfg.py.sh
 %_systemd_user_env_generator_dir/zz-firecfg.py.sh
