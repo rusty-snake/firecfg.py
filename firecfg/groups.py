@@ -40,11 +40,17 @@ class Groups:
             line = line.strip()
             program, places = line.split("=")
             places = places.split(",")
-            for place in self.programs:
-                if place in places:
-                    self.programs[place].append(program)
-                elif f"!{place}" in places and program in self.programs[place]:
-                    self.programs[place].remove(program)
+            for place in places:
+                if place == "":
+                    continue
+                try:
+                    if place[0] == "!":
+                        if program in self.programs[place[1:]]:
+                            self.programs[place[1:]].remove(program)
+                    else:
+                        self.programs[place].append(program)
+                except KeyError:
+                    logging.warning(f"Unknow place: {program}={place}")
 
     def _load_from(self, prefix):
         try:
