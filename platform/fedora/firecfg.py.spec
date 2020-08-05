@@ -10,6 +10,7 @@ Source0:        firecfg.py.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 Requires:       python3
+Enhances:       firejail
 
 %define py3_shbang_opts %{nil}
 
@@ -28,13 +29,13 @@ An improved firecfg written in python
 %install
 %py3_install
 make install DESTDIR=$RPM_BUILD_ROOT
-rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/firecfg.py-*.egg-info
 
 
 %files
 %license COPYING
 %{_bindir}/firecfg.py
 %{python3_sitelib}/firecfg
+%{python3_sitelib}/firecfg.py-*.egg-info
 %{_sysconfdir}/firecfg.py
 %{_sysconfdir}/firejail/disable-common.local
 %{_sysconfdir}/firejail/org.gnome.Maps.profile

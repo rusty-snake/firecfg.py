@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import logging
+
 from os import getuid, system
 
 from . import config
@@ -34,4 +36,5 @@ class DBusServiceFirejailer(BaseFirejailer):
 
     def after(self):
         if getuid() != 0:
+            logging.debug("Reloading dbus.service")
             system("systemctl --user reload dbus.service")
