@@ -119,6 +119,8 @@ class BaseFirejailer:
     def _firejail_nth_source(self, n):
         try:
             for file_name in listdir(self.sources[n]):
+                if not isfile(self.sources[n] + file_name):
+                    continue
                 try:
                     with open(self.sources[n] + file_name) as source_file:
                         ctx = {
