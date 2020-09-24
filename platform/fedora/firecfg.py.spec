@@ -8,6 +8,7 @@ URL:            https://github.com/rusty-snake/firecfg.py
 Source0:        firecfg.py.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-devel
 Requires:       python3
 Enhances:       firejail
