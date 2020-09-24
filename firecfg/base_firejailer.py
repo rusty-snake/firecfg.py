@@ -18,7 +18,7 @@
 import logging
 
 from os import listdir, makedirs
-from os.path import basename
+from os.path import basename, isfile
 from re import fullmatch
 
 from . import config
