@@ -1,9 +1,12 @@
 baobab=dbus-service
 celluloid=dbus-service
+com.gitlab.newsflash=dbus-service
 dconf-editor=dbus-service
 file-roller=dbus-service
 #breaks: flameshot=dbus-service
+geary=dbus-service
 gedit=dbus-service
+gfeeds=dbus-service
 gnome-builder=dbus-service
 gnome-calendar=dbus-service
 gnome-characters=dbus-service
@@ -25,3 +28,4 @@ org.gnome.Weather=dbus-service
 peek=dbus-service
 rhythmbox=dbus-service
 seahorse=dbus-service
+seahorse-daemon=dbus-service
