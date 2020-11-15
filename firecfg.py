@@ -1,5 +1,5 @@
 #!/usr/bin/python3 -I
-#
+
 # Copyright © 2020 rusty-snake
 #
 # This file is part of firecfg.py
@@ -31,7 +31,7 @@ from firecfg.dbus_service_firejailer import DBusServiceFirejailer
 def main():
     logging.basicConfig(
         format="firecfg.py:%(levelname)s: %(message)s",
-        level=logging.INFO,
+        level=logging.INFO if not config.DEBUG else logging.DEBUG,
         )
 
     if getuid() == 0:
