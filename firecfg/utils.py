@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+"""Various helper functions"""
+
 from os import getenv
 
 def getenv_or(key, default):
@@ -24,3 +26,18 @@ def getenv_or(key, default):
     if not val:
         val = default
     return val
+
+def gen_sources(dirs, subdir):
+    """Generate sources for a firejailer.
+
+    :param dirs: A $PATH like string of directorys sperated by ':'.
+    :param subdir: The name of the directory which is appended to every dir in dirs.
+    :returns: A dict with all the soucres
+    """
+    sources = []
+    for directory in dirs.split(":"):
+        if directory[-1] == "/":
+            sources.append(f"{directory}{subdir}/")
+        else:
+            sources.append(f"{directory}/{subdir}/")
+    return sources

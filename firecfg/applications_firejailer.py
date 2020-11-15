@@ -17,15 +17,11 @@
 
 from . import config
 from .base_firejailer import BaseFirejailer
-from .utils import getenv_or
+from .utils import getenv_or, gen_sources
 
 class ApplicationsFirejailer(BaseFirejailer):
     def __init__(self, groups):
-        sources = list(
-            map(
-                lambda p: p + "applications/" if p[-1] == "/" else p + "/applications/",
-                getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")
-            )
-        )
+        sources = gen_sources(getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"),
+                              "applications")
         target = config.prefix + "overrides/share/applications/"
         super().__init__(sources, target, kind="applications", groups=groups)

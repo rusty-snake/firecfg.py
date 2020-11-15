@@ -50,7 +50,7 @@ class Groups:
                     else:
                         self.programs[place].append(program)
                 except KeyError:
-                    logging.warning(f"Unknow place: {program}={place}")
+                    logging.warning("Unknow place: %s=%s", program, place)
 
     def _load_from(self, prefix):
         try:

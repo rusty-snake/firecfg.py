@@ -6,4 +6,3 @@ setup(
     packages=find_packages(),
     scripts=["firecfg.py"],
 )
-

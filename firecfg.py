@@ -49,8 +49,8 @@ def main():
             raise
 
     CreateSymlinks(groups).create()
-    AutostartFirejailer(groups).firejail()
     ApplicationsFirejailer(groups).firejail()
+    AutostartFirejailer(groups).firejail()
     DBusServiceFirejailer(groups).firejail()
 
 if __name__ == "__main__":

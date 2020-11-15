@@ -38,10 +38,12 @@ class CreateSymlinks:
         makedirs(self.bindir, 0o0755, True)
         for prg in self.programs:
             if self._is_restricted(prg) is False:
-                logging.warning(f"Skipping program '{prg}' because it contains disallowed characters")
+                logging.warning(
+                    "Skipping program '%s' because it contains disallowed characters",
+                    prg)
                 continue
             if which(prg):
-                logging.info(f"Create symlink for {prg}")
+                logging.info("Create symlink for %s", prg)
                 symlink(CreateSymlinks.FIREJAIL_EXEC, self.bindir + prg)
             else:
-                logging.debug(f"Create no symlink for {prg}")
+                logging.debug("Create no symlink for %s", prg)

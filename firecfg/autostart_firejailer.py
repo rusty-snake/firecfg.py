@@ -17,15 +17,10 @@
 
 from . import config
 from .base_firejailer import BaseFirejailer
-from .utils import getenv_or
+from .utils import getenv_or, gen_sources
 
 class AutostartFirejailer(BaseFirejailer):
     def __init__(self, groups):
-        sources = list(
-            map(
-                lambda p: p + "autostart/" if p[-1] == "/" else p + "/autostart/",
-                getenv_or("XDG_CONFIG_DIRS", "/etc/xdg").split(":")
-            )
-        )
+        sources = gen_sources(getenv_or("XDG_CONFIG_DIRS", "/etc/xdg"), "autostart")
         target = config.prefix + "overrides/xdg/autostart/"
         super().__init__(sources, target, kind="applications", groups=groups)

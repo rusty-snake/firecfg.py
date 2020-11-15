@@ -21,16 +21,12 @@ from os import getuid, system
 
 from . import config
 from .base_firejailer import BaseFirejailer
-from .utils import getenv_or
+from .utils import getenv_or, gen_sources
 
 class DBusServiceFirejailer(BaseFirejailer):
     def __init__(self, groups):
-        sources = list(
-            map(
-                lambda p: p + "dbus-1/services/" if p[-1] == "/" else p + "/dbus-1/services/",
-                getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")
-            )
-        )
+        sources = gen_sources(getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"),
+                              "dbus-1/services")
         target = config.prefix + "overrides/share/dbus-1/services/"
         super().__init__(sources, target, kind="dbus-service", groups=groups)
 
@@ -38,3 +34,5 @@ class DBusServiceFirejailer(BaseFirejailer):
         if getuid() != 0:
             logging.debug("Reloading dbus.service")
             system("systemctl --user reload dbus.service")
+        else:
+            logging.debug("Skip reloading of dbus.service, cause running as root")
