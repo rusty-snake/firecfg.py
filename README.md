@@ -3,7 +3,7 @@ firecfg.py
 
 An improved firecfg written in python.
 
-### :warning: This is experimantal software, use at your own risk. :warning: ###
+### :warning: This is experimental software, use at your own risk. :warning: ###
 
 maintenance: **experimental**
 

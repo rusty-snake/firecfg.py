@@ -21,6 +21,7 @@ from .utils import getenv_or, gen_sources
 
 class AutostartFirejailer(BaseFirejailer):
     def __init__(self, groups):
+        self.name = "Autostart"
         sources = gen_sources(getenv_or("XDG_CONFIG_DIRS", "/etc/xdg"), "autostart")
         target = config.prefix + "overrides/xdg/autostart/"
         super().__init__(sources, target, kind="applications", groups=groups)

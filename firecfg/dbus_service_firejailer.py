@@ -25,6 +25,7 @@ from .utils import getenv_or, gen_sources
 
 class DBusServiceFirejailer(BaseFirejailer):
     def __init__(self, groups):
+        self.name = "D-Bus service"
         sources = gen_sources(getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"),
                               "dbus-1/services")
         target = config.prefix + "overrides/share/dbus-1/services/"

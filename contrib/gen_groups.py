@@ -20,7 +20,7 @@ out = """\
 #
 # The format is the following:
 # <program-name/firejail-profile-name>=<places to firejail>
-# Where <places to firejial> is a comma seperated list consisting of
+# Where <places to firejail> is a comma separated list consisting of
 # - applications: $XDG_DATA_DIRS/applications
 # - autostart: $XDG_CONFIG_DIRS/autostart
 # - dbus-service: $XDG_DATA_DIRS/dbus-1/services

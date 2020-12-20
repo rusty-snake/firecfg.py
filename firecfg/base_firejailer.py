@@ -112,7 +112,7 @@ class BaseFirejailer:
         if write_file and self._firejailing_enabled_for(fixed_file):
             if fixed_file[-1] != "\n":
                 fixed_file.append("")
-            logging.info("Fixing %s", ctx['source_file_name'])
+            logging.info("Fix %s for %s", self.name, ctx['source_file_name'])
             with open(ctx["target_file_path"], "w") as target_file:
                 target_file.write("\n".join(fixed_file))
 
