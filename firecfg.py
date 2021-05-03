@@ -1,6 +1,6 @@
 #!/usr/bin/python3 -I
 
-# Copyright © 2020 rusty-snake
+# Copyright © 2020,2021 The firecfg.py Authors
 #
 # This file is part of firecfg.py
 #
