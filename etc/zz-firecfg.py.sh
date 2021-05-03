@@ -52,7 +52,7 @@ prepend_env PATH "$SYSTEM_PREFIX/bin" /usr/local/bin:/usr/local/sbin:/usr/bin:/u
 prepend_env XDG_DATA_DIRS "$SYSTEM_PREFIX/share" /usr/local/share:/usr/share
 prepend_env XDG_CONFIG_DIRS "$SYSTEM_PREFIX/xdg" /etc/xdg
 
-# add user overrides to all regular users
+# add user overrides for all regular users
 if [ $UID -ge 1000 ]; then
 	prepend_env PATH "$USER_PREFIX/bin"
 	prepend_env XDG_DATA_DIRS "$USER_PREFIX/share"
