@@ -22,17 +22,18 @@ from os import getuid
 from shutil import rmtree
 
 from firecfg import config
-from firecfg.groups import Groups
-from firecfg.create_symlinks import CreateSymlinks
-from firecfg.autostart_firejailer import AutostartFirejailer
 from firecfg.applications_firejailer import ApplicationsFirejailer
+from firecfg.autostart_firejailer import AutostartFirejailer
+from firecfg.create_symlinks import CreateSymlinks
 from firecfg.dbus_service_firejailer import DBusServiceFirejailer
+from firecfg.groups import Groups
+
 
 def main():
     logging.basicConfig(
         format="firecfg.py:%(levelname)s: %(message)s",
         level=logging.INFO if not config.DEBUG else logging.DEBUG,
-        )
+    )
 
     if getuid() == 0:
         config.prefix = config.SYSTEM_PREFIX
@@ -52,6 +53,7 @@ def main():
     ApplicationsFirejailer(groups).firejail()
     AutostartFirejailer(groups).firejail()
     DBusServiceFirejailer(groups).firejail()
+
 
 if __name__ == "__main__":
     main()
