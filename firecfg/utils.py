@@ -20,8 +20,8 @@
 from os import getenv
 
 def getenv_or(key, default):
-    """Return the value of the environment variable key if it exists and is not empty.
-    Otherwise default is returned."""
+    """Return the value of the environment variable key if it exists and it is not empty.
+    Otherwise return default."""
     val = getenv(key)
     if not val:
         val = default
@@ -30,9 +30,9 @@ def getenv_or(key, default):
 def gen_sources(dirs, subdir):
     """Generate sources for a firejailer.
 
-    :param dirs: A $PATH like string of directorys sperated by ':'.
+    :param dirs: A $PATH like string of directories sperated by ':'.
     :param subdir: The name of the directory which is appended to every dir in dirs.
-    :returns: A dict with all the soucres
+    :returns: A dict with all the sources
     """
     sources = []
     for directory in dirs.split(":"):
