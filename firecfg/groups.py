@@ -69,7 +69,7 @@ class Groups:
         self._load_from(config.USER_PREFIX)
 
     def load(self):
-        """load the groups from disks, if not done yet"""
+        """load the groups from disk, if not done yet"""
         if not self.loaded():
             self.reload()
         else:
