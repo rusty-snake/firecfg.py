@@ -20,6 +20,7 @@ from os import listdir
 
 from . import config
 
+
 class Groups:
     def __init__(self):
         self.programs = {

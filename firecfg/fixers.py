@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+
 class _BaseFixer:
     """A fixer can fix exactly one problematic thing in a desktop file
 
@@ -23,7 +24,8 @@ class _BaseFixer:
         2. 'autostart', 'applications' or 'dbus-service'
     FILES: If this is a special fixer, the name of the file must match one of the given regexp.
     """
-    #KIND = "(general|special):(autostart|applications|dbus-service)"
+
+    # KIND = "(general|special):(autostart|applications|dbus-service)"
     KIND = ""
     FILES = []
 
@@ -57,6 +59,7 @@ class _BaseFixer:
 
 
 ####################
+
 
 class PrependUsrBinFirejailOnAbsoluteExec(_BaseFixer):
     def can_fix(self, context, line):

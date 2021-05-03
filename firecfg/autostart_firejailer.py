@@ -17,7 +17,8 @@
 
 from . import config
 from .base_firejailer import BaseFirejailer
-from .utils import getenv_or, gen_sources
+from .utils import gen_sources, getenv_or
+
 
 class AutostartFirejailer(BaseFirejailer):
     def __init__(self, groups):

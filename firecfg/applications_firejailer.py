@@ -17,12 +17,14 @@
 
 from . import config
 from .base_firejailer import BaseFirejailer
-from .utils import getenv_or, gen_sources
+from .utils import gen_sources, getenv_or
+
 
 class ApplicationsFirejailer(BaseFirejailer):
     def __init__(self, groups):
         self.name = "Menu entry"
-        sources = gen_sources(getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"),
-                              "applications")
+        sources = gen_sources(
+            getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"), "applications"
+        )
         target = config.prefix + "overrides/share/applications/"
         super().__init__(sources, target, kind="applications", groups=groups)

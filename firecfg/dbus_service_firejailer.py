@@ -16,18 +16,19 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from os import getuid, system
 
 from . import config
 from .base_firejailer import BaseFirejailer
-from .utils import getenv_or, gen_sources
+from .utils import gen_sources, getenv_or
+
 
 class DBusServiceFirejailer(BaseFirejailer):
     def __init__(self, groups):
         self.name = "D-Bus service"
-        sources = gen_sources(getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"),
-                              "dbus-1/services")
+        sources = gen_sources(
+            getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"), "dbus-1/services"
+        )
         target = config.prefix + "overrides/share/dbus-1/services/"
         super().__init__(sources, target, kind="dbus-service", groups=groups)
 

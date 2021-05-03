@@ -19,10 +19,12 @@
 
 from os import listdir
 
+
 def listdir_sorted(path):
     files = listdir(path)
     files.sort()
     return files
+
 
 firecfg_config = []
 with open("/usr/lib64/firejail/firecfg.config") as raw_firecfg_config:

@@ -16,12 +16,12 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from os import makedirs, symlink
 from re import compile as compile_re
 from shutil import which
 
 from . import config
+
 
 class CreateSymlinks:
     ALLOWED_PATTERN = compile_re("[a-zA-Z0-9_.-]+")
@@ -40,7 +40,8 @@ class CreateSymlinks:
             if self._is_restricted(prg) is False:
                 logging.warning(
                     "Skipping program '%s' because it contains disallowed characters",
-                    prg)
+                    prg,
+                )
                 continue
             if which(prg):
                 logging.info("Create symlink for %s", prg)

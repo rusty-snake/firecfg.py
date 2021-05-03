@@ -16,7 +16,6 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import logging
-
 from os import listdir, makedirs
 from os.path import basename, isfile
 from re import fullmatch
@@ -24,11 +23,12 @@ from re import fullmatch
 from . import config
 from .fixers import FIXERS
 
+
 class BaseFirejailer:
     def __init__(self, sources, target, kind, groups):
-        self.sources = sources # ["/source/1/", "/source/2/"]
-        self.target = target # "/tar/get/"
-        self.kind = kind # "applications"
+        self.sources = sources  # ["/source/1/", "/source/2/"]
+        self.target = target  # "/tar/get/"
+        self.kind = kind  # "applications"
         self.fixers = [fixer for fixer in FIXERS if fixer.KIND.endswith(self.kind)]
         self.programs = groups.programs[self.kind]
 
@@ -75,7 +75,9 @@ class BaseFirejailer:
             out_line = fixed_lines[0]
         else:
             print(fixed_lines)
-            print(f"Multiple fixers have suggested a fix for a line in {ctx['program_name']}.")
+            print(
+                f"Multiple fixers have suggested a fix for a line in {ctx['program_name']}."
+            )
             print("0:", kvline["rawline"])
             for i in range(1, len(fixed_lines) + 1):
                 print(f"{i}: {fixed_lines[i - 1]}")
@@ -112,7 +114,7 @@ class BaseFirejailer:
         if write_file and self._firejailing_enabled_for(fixed_file):
             if fixed_file[-1] != "\n":
                 fixed_file.append("")
-            logging.info("Fix %s for %s", self.name, ctx['source_file_name'])
+            logging.info("Fix %s for %s", self.name, ctx["source_file_name"])
             with open(ctx["target_file_path"], "w") as target_file:
                 target_file.write("\n".join(fixed_file))
 
@@ -133,8 +135,12 @@ class BaseFirejailer:
                         }
                         self._firejail_source_file(source_file, ctx)
                 except Exception as err:
-                    logging.warning("An error ocured while processing '%s' in '%s': %s",
-                                    file_name, self.sources[n], err)
+                    logging.warning(
+                        "An error ocured while processing '%s' in '%s': %s",
+                        file_name,
+                        self.sources[n],
+                        err,
+                    )
                     if config.DEBUG:
                         raise
         except FileNotFoundError:

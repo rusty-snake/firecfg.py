@@ -19,6 +19,7 @@
 
 from os import getenv
 
+
 def getenv_or(key, default):
     """Return the value of the environment variable key if it exists and it is not empty.
     Otherwise return default."""
@@ -26,6 +27,7 @@ def getenv_or(key, default):
     if not val:
         val = default
     return val
+
 
 def gen_sources(dirs, subdir):
     """Generate sources for a firejailer.
