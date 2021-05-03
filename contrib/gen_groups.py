@@ -36,6 +36,7 @@ out = """\
 # based on firecfg.config and /etc/firejail/*.profile.
 #
 # The format is the following:
+# The format is as follows:
 # <program-name/firejail-profile-name>=<places to firejail>
 # Where <places to firejail> is a comma separated list consisting of
 # - applications: $XDG_DATA_DIRS/applications
@@ -43,12 +44,16 @@ out = """\
 # - dbus-service: $XDG_DATA_DIRS/dbus-1/services
 # - symlink: $PATH
 # You can also mark a places as explicitly unset by prefixing it with a '!'.
+# You can also mark places as explicitly unset by prefixing it with a '!'.
 #
 # Groups are first read from the system-locations and the from the user-location.
+# Groups are first read from the system-locations and then from the user-location.
 # Inside a location the groups are read alphabetically (numbers, upper, lower).
 #
 # By confection groups shipped by firecfg.py start with a uppercase letter (and this file with a 0).
 # User customization should go in a file starting with a lowercase letter.
+# By design groups shipped by firecfg.py start with an uppercase letter (and this file with a 0).
+# User customizations should go in a file starting with a lowercase letter.
 """
 for filename in listdir_sorted("/etc/firejail"):
     if not filename.endswith(".profile") or filename.endswith("common.profile"):
