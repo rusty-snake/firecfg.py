@@ -51,7 +51,7 @@ class BaseFirejailer:
         return None
 
     def _get_fixers(self, ctx):
-        """Return a list with all fixer that should be applied for ctx"""
+        """Return a list with all fixers that should be applied for ctx"""
         fixers = []
         for fixer in self.fixers:
             if fixer.KIND[:7] == "general":
@@ -75,7 +75,7 @@ class BaseFirejailer:
             out_line = fixed_lines[0]
         else:
             print(fixed_lines)
-            print(f"Multible fixers has suggested a fix for a line in {ctx['program_name']}.")
+            print(f"Multiple fixers have suggested a fix for a line in {ctx['program_name']}.")
             print("0:", kvline["rawline"])
             for i in range(1, len(fixed_lines) + 1):
                 print(f"{i}: {fixed_lines[i - 1]}")

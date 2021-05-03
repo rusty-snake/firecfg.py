@@ -16,9 +16,9 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 class _BaseFixer:
-    """A fixer can fix excatly one problematic thing in a desktop file
+    """A fixer can fix exactly one problematic thing in a desktop file
 
-    KIND: The type of the fixer consisting of two parts, spearted by a ':'
+    KIND: The type of the fixer consisting of two parts, separated by a ':'
         1. 'general' or 'special'
         2. 'autostart', 'applications' or 'dbus-service'
     FILES: If this is a special fixer, the name of the file must match one of the given regexp.
@@ -29,7 +29,7 @@ class _BaseFixer:
 
     def can_fix(self, context, line):
         """This function is called for _every_ line in the file,
-        and should give a quick answer whether this fixer can probably fix it.
+        and should give a quick answer whether this fixer can likely fix it.
         :param context: {
             "source_dir": "/usr/share/applications/",
             "source_file_name": "firefox.desktop",
@@ -43,7 +43,7 @@ class _BaseFixer:
             "value": "firefox %u",
             "rawline": "Exec=firefox %u",
         }
-        :retruns: True if `fix` can likely fix this line.
+        :returns: True if `fix` can likely fix this line.
         """
         return False
 

@@ -46,4 +46,4 @@ class CreateSymlinks:
                 logging.info("Create symlink for %s", prg)
                 symlink(CreateSymlinks.FIREJAIL_EXEC, self.bindir + prg)
             else:
-                logging.debug("Create no symlink for %s", prg)
+                logging.debug("Not creating symlink for %s", prg)
