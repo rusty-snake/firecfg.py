@@ -36,4 +36,4 @@ class DBusServiceFirejailer(BaseFirejailer):
             logging.debug("Reloading dbus.service")
             system("systemctl --user reload dbus.service")
         else:
-            logging.debug("Skip reloading of dbus.service, cause running as root")
+            logging.debug("Skip reloading of dbus.service, we're running as root")
