@@ -17,12 +17,14 @@
 
 """A list with all firejailer classes (``firecfgpy.firejailer.firejailers.FIREJAILERS``)."""
 
+from .alias import Alias
 from .applications import Applications
 from .autostart import Autostart
 from .dbus_service import DBusService
 from .symlink import Symlink
 
 FIREJAILERS = [
+    Alias,
     Applications,
     Autostart,
     DBusService,

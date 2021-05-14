@@ -12,10 +12,10 @@ Features
  * Firejail applications (aka .desktop-files)
  * Firejail dbus-services
  * Firejail autostart
+ * Generate aliases for interactive shells
  * Add $SUDO_USER to firejails user access database
  * TODO: Firejail systemd --user
  * TODO: Firejail dbus-system-service
- * TODO: bashrc aliases for interactive shells
 
 Install
 -------

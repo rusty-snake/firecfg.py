@@ -36,5 +36,3 @@ class Symlink(FireJailer):
             if which(program):
                 logging.debug("Create symlink for %s", program)
                 symlink(FIREJAIL, join_paths(bindir, program))
-            else:
-                pass
