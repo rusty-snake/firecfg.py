@@ -1,0 +1,2 @@
+include firecfgpy/groups/*
+recursive-include firecfgpy/setup_data *

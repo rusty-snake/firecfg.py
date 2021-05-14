@@ -5,21 +5,30 @@ firecfg.py
 
 An improved firecfg written in python.
 
-### :warning: This is experimental software, use at your own risk. :warning: ###
-
-maintenance: **experimental**
-
 Features
 --------
 
- * Create symlinks
- * Fix applications with absolute path
- * Fix gapplications
- * Fix dbus-services
- * Fix autostart
- * TODO: Fix systemd --user
- * TODO: Fix dbus-system-service
- * TODO: Firejail user access database
+ * Firejail $PATH (symlink)
+ * Firejail applications (aka .desktop-files)
+ * Firejail dbus-services
+ * Firejail autostart
+ * Add $SUDO_USER to firejails user access database
+ * TODO: Firejail systemd --user
+ * TODO: Firejail dbus-system-service
+ * TODO: bashrc aliases for interactive shells
+
+FAQ
+---
+
+### I want to be warned about wrong setups.
+
+Add this to your .bashrc:
+
+```bash
+if [[ :$PATH: != *:/etc/firecfg.py/overrides/bin:* ]]; then
+    echo 'WARNING: firecfg.py in not in $PATH!'
+fi
+```
 
 License
 -------

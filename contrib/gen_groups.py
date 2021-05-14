@@ -38,13 +38,8 @@ out = """\
 # based on firecfg.config and /etc/firejail/*.profile.
 #
 # The format is as follows:
-# <program-name/firejail-profile-name>=<places to firejail>
-# Where <places to firejail> is a comma separated list consisting of
-# - applications: $XDG_DATA_DIRS/applications
-# - autostart: $XDG_CONFIG_DIRS/autostart
-# - dbus-service: $XDG_DATA_DIRS/dbus-1/services
-# - symlink: $PATH
-# You can also mark places as explicitly unset by prefixing it with a '!'.
+# <program-name/firejail-profile-name>=<firejailer-ids>
+# You can also mark a firejailer as explicitly unset by prefixing it with a '!'.
 #
 # Groups are first read from the system-locations and then from the user-location.
 # Inside a location the groups are read alphabetically (numbers, upper, lower).

@@ -15,14 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from . import config
-from .base_firejailer import BaseFirejailer
-from .utils import gen_sources, getenv_or
+"""A list with all firejailer classes (``firecfgpy.firejailer.firejailers.FIREJAILERS``)."""
 
+from .applications import Applications
+from .autostart import Autostart
+from .dbus_service import DBusService
+from .symlink import Symlink
 
-class AutostartFirejailer(BaseFirejailer):
-    def __init__(self, groups):
-        self.name = "Autostart"
-        sources = gen_sources(getenv_or("XDG_CONFIG_DIRS", "/etc/xdg"), "autostart")
-        target = config.prefix + "overrides/xdg/autostart/"
-        super().__init__(sources, target, kind="applications", groups=groups)
+FIREJAILERS = [
+    Applications,
+    Autostart,
+    DBusService,
+    Symlink,
+]

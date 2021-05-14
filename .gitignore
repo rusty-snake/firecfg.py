@@ -1,6 +1,10 @@
 __pycache__/
-*.egg-info
+/*.egg-info
 /build/
+/docs/build/
+/dist/
+/.mypy_cache/
+/venv/
 
 *.rpm
 

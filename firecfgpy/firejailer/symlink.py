@@ -15,16 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from . import config
-from .base_firejailer import BaseFirejailer
-from .utils import gen_sources, getenv_or
+import logging
+from os import makedirs, symlink
+from os.path import join as join_paths
+from shutil import which
+
+from . import FIREJAIL, FireJailer
 
 
-class ApplicationsFirejailer(BaseFirejailer):
-    def __init__(self, groups):
-        self.name = "Menu entry"
-        sources = gen_sources(
-            getenv_or("XDG_DATA_DIRS", "/usr/local/share:/usr/share"), "applications"
-        )
-        target = config.prefix + "overrides/share/applications/"
-        super().__init__(sources, target, kind="applications", groups=groups)
+class Symlink(FireJailer):
+    ID = "symlink"
+    NAME = "Symlink"
+
+    @classmethod
+    def run(cls, programs: set[str], overrides: str) -> None:
+        bindir = join_paths(overrides, "bin")
+        makedirs(bindir, 0o0755, exist_ok=True)
+
+        for program in programs:
+            if which(program):
+                logging.debug("Create symlink for %s", program)
+                symlink(FIREJAIL, join_paths(bindir, program))
+            else:
+                pass

@@ -53,8 +53,18 @@ mkdir -p "$BUILDDIR" "$RPMDIR" "$SOURCEDIR" "$SPECDIR" "$SRPMDIR"
 trap "rm -rf '$TOPDIR'" EXIT
 
 cp "$(dirname "$0")"/firecfg.py.spec "$SPECDIR"
-REPO_ROOT="$(while [[ ! -d .git && $PWD != / ]]; do cd ..; done && [[ $PWD != / ]] && echo "$PWD")"
-tar --transform "s|${REPO_ROOT#/}|.|" --exclude=".git" -czf "$SOURCEDIR/firecfg.py.tar.gz" "$REPO_ROOT"
+
+OLDPWD="$PWD"
+while [[ ! -d .git && $PWD != / ]]; do
+	cd ..
+done
+if [[ $PWD == / ]]; then
+	echo "Failed to find repo root."
+	exit 1
+fi
+python3 setup.py sdist
+cp dist/firecfg.py-*.tar.gz "$SOURCEDIR"
+cd "$OLDPWD"
 
 if [ "$1" == "--use-mock" ]; then
 	rpmbuild --define "_topdir $TOPDIR" -bs "$SPECDIR"/firecfg.py.spec

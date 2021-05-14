@@ -15,11 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from os.path import expanduser
+from .common import PrependFirejailInExecKeys
 
-DEBUG = False
 
-SYSTEM_PREFIX = "/etc/firecfg.py/"
-USER_PREFIX = expanduser("~/.config/firecfg.py/")
+class DBusService(PrependFirejailInExecKeys):
+    ID = "dbus-service"
+    NAME = "D-Bus service"
 
-prefix = ""
+    SOURCES_ENV = "XDG_DATA_DIRS"
+    SOURCES_DEFAULT = "/usr/local/share:/usr/share"
+    SOURCES_SUBDIR = "dbus-1/services"
+    TARGET_SUFFIX = "share/dbus-1/services"
