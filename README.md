@@ -17,6 +17,16 @@ Features
  * TODO: Firejail dbus-system-service
  * TODO: bashrc aliases for interactive shells
 
+Install
+-------
+
+```
+python3 -m pip install git+https://github.com/rusty-snake/firecfg.py.git#egg=firecfg.py
+firecfg.py setup
+firecfg.py
+reboot
+```
+
 FAQ
 ---
 
