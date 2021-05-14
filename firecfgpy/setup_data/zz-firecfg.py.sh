@@ -32,13 +32,13 @@ __fcp_prepend_env() {
 # add system-wide overrides
 __fcp_prepend_env PATH "$__FCP_SYSTEM_OVERRIDES_PREFIX/bin" /usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
 __fcp_prepend_env XDG_DATA_DIRS "$__FCP_SYSTEM_OVERRIDES_PREFIX/share" /usr/local/share:/usr/share
-__fcp_prepend_env XDG_CONFIG_DIRS "$__FCP_SYSTEM_OVERRIDES_PREFIX/xdg" /etc/xdg
+__fcp_prepend_env XDG_CONFIG_DIRS "$__FCP_SYSTEM_OVERRIDES_PREFIX/etc/xdg" /etc/xdg
 
 # add user overrides for all regular users
 if [[ ${UID:-$(id -u)} -ge 1000 ]]; then
 	__fcp_prepend_env PATH "$__FCP_USER_OVERRIDES_PREFIX/bin"
 	__fcp_prepend_env XDG_DATA_DIRS "$__FCP_USER_OVERRIDES_PREFIX/share"
-	__fcp_prepend_env XDG_CONFIG_DIRS "$__FCP_USER_OVERRIDES_PREFIX/xdg"
+	__fcp_prepend_env XDG_CONFIG_DIRS "$__FCP_USER_OVERRIDES_PREFIX/etc/xdg"
 fi
 
 unset __fcp_prepend_env __FCP_SYSTEM_OVERRIDES_PREFIX __FCP_USER_OVERRIDES_PREFIX
