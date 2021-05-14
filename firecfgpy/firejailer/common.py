@@ -61,7 +61,7 @@ class PrependFirejailInExecKeys(FireJailer):
                         raise
                     if firejailed is True:
                         try:
-                            logging.debug("Firejail %s", filename)
+                            logging.debug("Firejail %s %s", cls.NAME, filename)
                             with open(join_paths(targetdir, filename), "w") as file:
                                 file.write("".join(newfile))
                         except:
