@@ -16,6 +16,7 @@ gnome-font-viewer=dbus-service
 gnome-latex=dbus-service
 gnome-logs=dbus-service
 gnome-maps=dbus-service
+gnome-nibbles=dbus-service
 gnome-photos=dbus-service
 gnome-pomodoro=dbus-service
 gnome-screenshots=dbus-service
