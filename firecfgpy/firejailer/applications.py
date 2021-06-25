@@ -25,4 +25,4 @@ class Applications(PrependFirejailInExecKeys):
     SOURCES_ENV = "XDG_DATA_DIRS"
     SOURCES_DEFAULT = "/usr/local/share:/usr/share"
     SOURCES_SUBDIR = "applications"
-    TARGET_SUFFIX = "share/applications/"
+    TARGET_SUFFIX = "data/applications"

@@ -25,4 +25,4 @@ class Autostart(PrependFirejailInExecKeys):
     SOURCES_ENV = "XDG_CONFIG_DIRS"
     SOURCES_DEFAULT = "/etc/xdg"
     SOURCES_SUBDIR = "autostart"
-    TARGET_SUFFIX = "etc/xdg/autostart"
+    TARGET_SUFFIX = "config/autostart"

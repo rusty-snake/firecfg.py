@@ -25,4 +25,4 @@ class DBusService(PrependFirejailInExecKeys):
     SOURCES_ENV = "XDG_DATA_DIRS"
     SOURCES_DEFAULT = "/usr/local/share:/usr/share"
     SOURCES_SUBDIR = "dbus-1/services"
-    TARGET_SUFFIX = "share/dbus-1/services"
+    TARGET_SUFFIX = "data/dbus-1/services"
