@@ -1,2 +1,6 @@
+include CONTRIBUTING.md NEWS pylintrc
+graft contrib
+graft docs
+
 include firecfgpy/groups/*
 recursive-include firecfgpy/setup_data *

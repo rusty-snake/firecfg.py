@@ -1,0 +1,5 @@
+firecfg.py 0.0.5                                                      2021-07-06
+================================================================================
+
+ + Generate aliases for interactive shells
+ * Consistent naming in overrides/ directory (restart required)
