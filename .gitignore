@@ -6,6 +6,10 @@ __pycache__/
 /.mypy_cache/
 /venv/
 
+/maybe-firejail
+/maybe-firejail.*
+!/maybe-firejail.rs
+
 *.rpm
 
 generated_groups.txt
