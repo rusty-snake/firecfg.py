@@ -1,5 +1,6 @@
 baobab=dbus-service
 celluloid=dbus-service
+cheese=dbus-service
 com.gitlab.newsflash=dbus-service
 dconf-editor=dbus-service
 file-roller=dbus-service

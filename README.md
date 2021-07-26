@@ -27,6 +27,12 @@ firecfg.py
 reboot
 ```
 
+### Arch Linux
+
+There's an [AUR package](https://aur.archlinux.org/packages/python-firecfg-git/).
+
+You still need to `firecfg.py setup && firecfg.py && reboot` after installing.
+
 FAQ
 ---
 
