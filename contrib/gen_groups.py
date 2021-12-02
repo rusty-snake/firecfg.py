@@ -27,7 +27,7 @@ def listdir_sorted(path):
 
 
 firecfg_config = []
-with open("/usr/lib64/firejail/firecfg.config") as raw_firecfg_config:
+with open("/etc/firejail/firecfg.config") as raw_firecfg_config:
     for line in raw_firecfg_config:
         if line[0] == "#":
             continue
