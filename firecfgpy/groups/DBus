@@ -27,6 +27,7 @@ gradio=dbus-service
 org.gnome.Maps=dbus-service
 org.gnome.NautilusPreviewer=dbus-service
 org.gnome.Weather=dbus-service
+org.gnome.Weather.BackgroundService=dbus-service
 peek=dbus-service
 rhythmbox=dbus-service
 seahorse=dbus-service
