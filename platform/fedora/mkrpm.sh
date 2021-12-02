@@ -71,7 +71,7 @@ if [ "$1" == "--use-mock" ]; then
 
 	mock "$SRPMDIR"/*.rpm
 else
-	rpmbuild --define "_topdir $TOPDIR" -ba "$SPECDIR"/firecfg.py.spec
+	rpmbuild --define "_topdir $TOPDIR" -bb "$SPECDIR"/firecfg.py.spec
 
-	cp "$RPMDIR"/*/*.rpm "$SRPMDIR"/*.rpm .
+	cp "$RPMDIR"/*/*.rpm .
 fi
