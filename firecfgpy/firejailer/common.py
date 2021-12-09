@@ -50,7 +50,9 @@ class PrependFirejailInExecKeys(FireJailer):
                             for line in file:
                                 if line.startswith("Exec="):
                                     cmdl = line[5:].rstrip().split(" ")
-                                    if basename(cmdl[0]) in programs:
+                                    if "/" not in cmdl[0]:
+                                        newfile += line
+                                    elif basename(cmdl[0]) in programs:
                                         newfile += f"Exec={FIREJAIL} {' '.join(cmdl)}\n"
                                         firejailed = True
                                     else:

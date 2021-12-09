@@ -1,3 +1,10 @@
+firecfg.py 0.0.6 [UNRELEASED]                                         2021-MM-DD
+================================================================================
+
+ * Prepend /usr/bin/firejail only if an path is used (applications, autostart,
+   dbus-service) but not if an executble name is used.
+ * Update groups
+
 firecfg.py 0.0.5                                                      2021-07-06
 ================================================================================
 

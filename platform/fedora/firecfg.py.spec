@@ -1,5 +1,5 @@
 Name:           firecfg.py
-Version:        0.0.5
+Version:        0.0.6
 Release:        1%{?dist}
 Summary:        An improved firecfg written in python
 

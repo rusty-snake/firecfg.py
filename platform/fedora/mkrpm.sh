@@ -54,24 +54,17 @@ trap "rm -rf '$TOPDIR'" EXIT
 
 cp "$(dirname "$0")"/firecfg.py.spec "$SPECDIR"
 
-OLDPWD="$PWD"
-while [[ ! -d .git && $PWD != / ]]; do
-	cd ..
-done
-if [[ $PWD == / ]]; then
-	echo "Failed to find repo root."
-	exit 1
-fi
+pushd "$(git rev-parse --show-toplevel)"
 python3 setup.py sdist
 cp dist/firecfg.py-*.tar.gz "$SOURCEDIR"
-cd "$OLDPWD"
+popd
 
 if [ "$1" == "--use-mock" ]; then
 	rpmbuild --define "_topdir $TOPDIR" -bs "$SPECDIR"/firecfg.py.spec
 
 	mock "$SRPMDIR"/*.rpm
 else
-	rpmbuild --define "_topdir $TOPDIR" -bb "$SPECDIR"/firecfg.py.spec
+	rpmbuild --define "_topdir $TOPDIR" --nodebuginfo -bb "$SPECDIR"/firecfg.py.spec
 
 	cp "$RPMDIR"/*/*.rpm .
 fi
