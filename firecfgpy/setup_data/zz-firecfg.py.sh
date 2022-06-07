@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright © 2020,2021 The firecfg.py Authors
+# Copyright © 2020-2022 The firecfg.py Authors
 #
 # This file is part of firecfg.py
 #

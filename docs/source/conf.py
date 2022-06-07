@@ -17,11 +17,11 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'firecfg.py'
-copyright = '2021, rusty-snake'
+copyright = '2021-2022, rusty-snake'
 author = 'rusty-snake'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.5'
+release = '0.0.6'
 
 
 # -- General configuration ---------------------------------------------------
