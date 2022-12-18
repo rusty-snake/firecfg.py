@@ -1,7 +1,5 @@
-firecfg.py
+firecfg.py [![maintenance-status: irregularly-developed](https://img.shields.io/badge/maintenance--status-irregularly--developed-olive)](https://gist.github.com/rusty-snake/574a91f1df9f97ec77ca308d6d731e29)
 ==========
-
-[![maintenance-status: experimental](https://img.shields.io/badge/maintenance--status-experimental-orange)](https://gist.github.com/rusty-snake/574a91f1df9f97ec77ca308d6d731e29)
 
 An improved firecfg written in python.
 
