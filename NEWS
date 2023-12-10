@@ -1,4 +1,4 @@
-firecfg.py 0.0.6 [UNRELEASED]                                         2022-MM-DD
+firecfg.py 0.0.6 [UNRELEASED]                                         2024-MM-DD
 ================================================================================
 
  * Prepend /usr/bin/firejail only if an path is used (applications, autostart,
